@@ -18,6 +18,7 @@ RULE_DIRS=(
     "performance-concurrency"
     "verification-requirements"
     "debugging-logs-first"
+    "no-unsolicited-external-requests"
 )
 
 RULE_DESCRIPTIONS=(
@@ -32,6 +33,7 @@ RULE_DESCRIPTIONS=(
     "Parallelize network-bound work, always add timeouts"
     "Verify independently before claiming success"
     "Check logs before guessing at root causes"
+    "Ask before sending data to domains the model chose"
 )
 
 echo "opencode-rules installer"
