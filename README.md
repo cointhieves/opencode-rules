@@ -19,6 +19,7 @@ Pick the rules you want. Skip the ones you don't.
 | 9 | performance-concurrency | Parallelize network-bound loops, always add timeouts |
 | 10 | verification-requirements | Verify independently before claiming success |
 | 11 | debugging-logs-first | Check logs before guessing at root causes |
+| 12 | no-unsolicited-external-requests | Ask before sending data to domains the model chose |
 
 ## How It Works
 
@@ -132,7 +133,10 @@ opencode-rules/
     ├── verification-requirements/
     │   ├── full.md
     │   └── reinforcement.md
-    └── debugging-logs-first/
+    ├── debugging-logs-first/
+    │   ├── full.md
+    │   └── reinforcement.md
+    └── no-unsolicited-external-requests/
         ├── full.md
         └── reinforcement.md
 ```
