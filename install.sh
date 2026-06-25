@@ -20,6 +20,7 @@ RULE_DIRS=(
     "debugging-logs-first"
     "no-unsolicited-external-requests"
     "table-formatting"
+    "no-assumptions"
 )
 
 RULE_DESCRIPTIONS=(
@@ -36,6 +37,7 @@ RULE_DESCRIPTIONS=(
     "Check logs before guessing at root causes"
     "Ask before sending data to domains the model chose"
     "Render tables in code-fenced, pipe-aligned format"
+    "Understand and confirm before coding; never guess at requirements"
 )
 
 echo "opencode-rules installer"
