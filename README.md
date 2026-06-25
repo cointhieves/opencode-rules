@@ -21,6 +21,7 @@ Pick the rules you want. Skip the ones you don't.
 | 11 | debugging-logs-first | Check logs before guessing at root causes |
 | 12 | no-unsolicited-external-requests | Ask before sending data to domains the model chose |
 | 13 | table-formatting | Render tables in code-fenced, pipe-aligned format |
+| 14 | no-assumptions | Understand and confirm before coding; never guess at requirements |
 
 ## How It Works
 
@@ -140,7 +141,10 @@ opencode-rules/
     ├── no-unsolicited-external-requests/
     │   ├── full.md
     │   └── reinforcement.md
-    └── table-formatting/
+    ├── table-formatting/
+    │   ├── full.md
+    │   └── reinforcement.md
+    └── no-assumptions/
         ├── full.md
         └── reinforcement.md
 ```
