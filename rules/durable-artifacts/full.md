@@ -1,6 +1,6 @@
 ## Durable Artifacts
 
-**CRITICAL RULE**: You MUST NOT write a file to temporary space if anyone — including a future session of yourself — will need to read it again after the current turn ends. Durable artifacts go to `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`. This is a BLOCKING requirement.
+**CRITICAL RULE**: You MUST NOT write a file to temporary space if anyone — including a future session of yourself — will need to read it again after the current turn ends. Durable artifacts go to `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`. This is a BLOCKING requirement.
 
 ### Why This Rule Exists
 
@@ -12,13 +12,13 @@ Before choosing a path, answer one question:
 
 > Will anyone — including a future session of me — need to read this file again after this turn ends?
 
-- **Yes** -> it is an **artifact** -> `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`
+- **Yes** -> it is an **artifact** -> `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`
 - **No, it is consumed and discarded within this same turn** -> temp is acceptable
 
 ### Mandatory Process
 
 1. **STOP** — Before writing any file, apply the classification test. Do not pick a path first and rationalise it after.
-2. **IF ARTIFACT** — Write to `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`. This sits inside the already-allowed `~/Documents/code/**` glob, so no permission change is needed.
+2. **IF ARTIFACT** — Write to `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`. If your opencode.json restricts writes, allow this directory in its permission rules.
 3. **IF REPO WORK** — If the file genuinely belongs to a specific codebase, it goes in that repo instead. Do NOT put unrelated documents in a repo just because the repo is writable.
 4. **IF SCRATCH** — Temp is acceptable only for intermediates consumed and discarded within the same turn.
 5. **TELL THE USER** the path you chose, in the response, so a wrong choice is visible immediately rather than discovered later.
@@ -66,8 +66,8 @@ LLM: *writes /var/folders/.../T/opencode/support-ticket.md*
 
 ```
 User: Draft a support ticket I can submit.
-LLM: *writes ~/Documents/code/artifacts/2026-08-30-elastic-geoip-upgrade/
+LLM: *writes {{ARTIFACTS_DIR}}/2026-08-30-elastic-geoip-upgrade/
       elastic-geoip-upgrade-full.md*
      Draft written to
-     ~/Documents/code/artifacts/2026-08-30-elastic-geoip-upgrade/.
+     {{ARTIFACTS_DIR}}/2026-08-30-elastic-geoip-upgrade/.
 ```

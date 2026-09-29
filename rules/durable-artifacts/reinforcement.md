@@ -1,14 +1,14 @@
 # Durable Artifacts — Reinforcement
 
-**CRITICAL RULE**: NEVER write a file to temp space if anyone will need to read it again after this turn. Artifacts go to `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`. BLOCKING.
+**CRITICAL RULE**: NEVER write a file to temp space if anyone will need to read it again after this turn. Artifacts go to `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`. BLOCKING.
 
 **The classification test**: *Will anyone — including a future session of me — need to read this file again after this turn ends?*
-- YES -> artifact -> `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`
+- YES -> artifact -> `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`
 - NO, consumed and discarded in the same turn -> temp is fine
 
 **Before writing ANY file**:
 1. STOP — apply the classification test before choosing a path
-2. ARTIFACT? — use `~/Documents/code/artifacts/<YYYY-MM-DD>-<slug>/`, already inside the allowed `~/Documents/code/**` glob
+2. ARTIFACT? — use `{{ARTIFACTS_DIR}}/<YYYY-MM-DD>-<slug>/`; if opencode.json restricts writes, allow this directory
 3. REPO WORK? — if the file belongs to a specific codebase, it goes in that repo instead
 4. SCRATCH ONLY? — temp is acceptable only for intermediates consumed and discarded within the same turn
 5. TELL THE USER the path you chose, so a wrong choice is visible immediately

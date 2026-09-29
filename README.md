@@ -55,6 +55,8 @@ Install which rules? (enter numbers separated by spaces, or 'all') [all]:
 
 Enter numbers to pick specific rules, or press Enter for all.
 
+If you select `durable-artifacts`, the installer also asks where artifacts should live (default `~/Documents/code/artifacts`) and writes that path into the rule. If your `opencode.json` restricts file writes, allow that directory in its permission rules.
+
 ### What the installer does
 
 1. Backs up any existing `~/.config/opencode/AGENTS.md` and `opencode.json` (timestamped)
