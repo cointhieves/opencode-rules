@@ -21,6 +21,8 @@ RULE_DIRS=(
     "no-unsolicited-external-requests"
     "table-formatting"
     "no-assumptions"
+    "durable-artifacts"
+    "distributable-content"
 )
 
 RULE_DESCRIPTIONS=(
@@ -38,6 +40,8 @@ RULE_DESCRIPTIONS=(
     "Ask before sending data to domains the model chose"
     "Render tables in code-fenced, pipe-aligned format"
     "Understand and confirm before coding; never guess at requirements"
+    "Save reusable files to a dated artifacts dir, not temp"
+    "Shareable content gets markdown plus styled HTML"
 )
 
 echo "opencode-rules installer"
