@@ -21,6 +21,8 @@ RULE_DIRS=(
     "no-unsolicited-external-requests"
     "table-formatting"
     "no-assumptions"
+    "durable-artifacts"
+    "distributable-content"
 )
 
 RULE_DESCRIPTIONS=(
@@ -38,6 +40,8 @@ RULE_DESCRIPTIONS=(
     "Ask before sending data to domains the model chose"
     "Render tables in code-fenced, pipe-aligned format"
     "Understand and confirm before coding; never guess at requirements"
+    "Save reusable files to a dated artifacts dir, not temp"
+    "Shareable content gets markdown plus styled HTML"
 )
 
 echo "opencode-rules installer"
@@ -76,6 +80,31 @@ if [[ ${#SELECTED[@]} -eq 0 ]]; then
 fi
 
 echo ""
+# --- Artifacts directory (durable-artifacts rule only) ---
+
+ARTIFACTS_DIR="~/Documents/code/artifacts"
+for rule in "${SELECTED[@]}"; do
+    if [[ "${rule}" == "durable-artifacts" ]]; then
+        read -rp "Artifacts directory for durable-artifacts [${ARTIFACTS_DIR}]: " answer
+        ARTIFACTS_DIR="${answer:-${ARTIFACTS_DIR}}"
+        ARTIFACTS_DIR="${ARTIFACTS_DIR%/}"
+        echo ""
+    fi
+done
+
+# Replace {{ARTIFACTS_DIR}} literally. Pure bash so paths containing &, |, or /
+# are safe, and works on the macOS default bash 3.2.
+render() {
+    local s out="" token='{{ARTIFACTS_DIR}}'
+    s="$(cat "$1"; printf x)"
+    s="${s%x}"
+    while [[ "${s}" == *"${token}"* ]]; do
+        out+="${s%%"${token}"*}${ARTIFACTS_DIR}"
+        s="${s#*"${token}"}"
+    done
+    printf '%s' "${out}${s}"
+}
+
 echo "Installing ${#SELECTED[@]} rule(s)..."
 echo ""
 
@@ -108,7 +137,7 @@ echo "" >> "${AGENTS_FILE}"
 for rule in "${SELECTED[@]}"; do
     full_file="${SCRIPT_DIR}/rules/${rule}/full.md"
     if [ -f "${full_file}" ]; then
-        cat "${full_file}" >> "${AGENTS_FILE}"
+        render "${full_file}" >> "${AGENTS_FILE}"
         echo "" >> "${AGENTS_FILE}"
         echo "---" >> "${AGENTS_FILE}"
         echo "" >> "${AGENTS_FILE}"
@@ -125,7 +154,7 @@ echo "Installing reinforcement files..."
 for rule in "${SELECTED[@]}"; do
     reinforcement_file="${SCRIPT_DIR}/rules/${rule}/reinforcement.md"
     if [ -f "${reinforcement_file}" ]; then
-        cp "${reinforcement_file}" "${CONFIG_DIR}/${rule}.md"
+        render "${reinforcement_file}" > "${CONFIG_DIR}/${rule}.md"
         echo "  Installed: ${rule}.md"
     else
         echo "  WARNING: ${reinforcement_file} not found, skipping"
@@ -202,4 +231,12 @@ echo "Installation complete!"
 echo ""
 echo "Installed ${#SELECTED[@]} rule(s) to ${CONFIG_DIR}/"
 echo ""
+for rule in "${SELECTED[@]}"; do
+    if [[ "${rule}" == "durable-artifacts" ]]; then
+        echo "Artifacts directory: ${ARTIFACTS_DIR}"
+        echo "  If your opencode.json restricts file writes, allow this directory in its permission rules."
+        echo ""
+    fi
+done
+
 echo "To uninstall, run: ./uninstall.sh"

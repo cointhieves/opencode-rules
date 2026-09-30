@@ -22,6 +22,8 @@ Pick the rules you want. Skip the ones you don't.
 | 12 | no-unsolicited-external-requests | Ask before sending data to domains the model chose |
 | 13 | table-formatting | Render tables in code-fenced, pipe-aligned format |
 | 14 | no-assumptions | Understand and confirm before coding; never guess at requirements |
+| 15 | durable-artifacts | Save files anyone will reread to a dated artifacts directory, never temp |
+| 16 | distributable-content | Content meant to be sent gets markdown plus styled HTML for copy/paste |
 
 ## How It Works
 
@@ -52,6 +54,8 @@ Install which rules? (enter numbers separated by spaces, or 'all') [all]:
 ```
 
 Enter numbers to pick specific rules, or press Enter for all.
+
+If you select `durable-artifacts`, the installer also asks where artifacts should live (default `~/Documents/code/artifacts`) and writes that path into the rule. If your `opencode.json` restricts file writes, allow that directory in its permission rules.
 
 ### What the installer does
 
@@ -144,7 +148,13 @@ opencode-rules/
     ├── table-formatting/
     │   ├── full.md
     │   └── reinforcement.md
-    └── no-assumptions/
+    ├── no-assumptions/
+    │   ├── full.md
+    │   └── reinforcement.md
+    ├── durable-artifacts/
+    │   ├── full.md
+    │   └── reinforcement.md
+    └── distributable-content/
         ├── full.md
         └── reinforcement.md
 ```
